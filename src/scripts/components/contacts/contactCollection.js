@@ -1,6 +1,6 @@
 //Control module for the Contacts feature.
 
-import API from "./apiManager"
+import API from "../../global modules/apiManager"
 
 export default {
     //get contacts from API.

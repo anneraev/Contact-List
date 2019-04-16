@@ -1,4 +1,4 @@
-import htmlBuilder from "./htmlBuilder";
+import htmlBuilder from "../global modules/htmlBuilder";
 import formObjectManager from "./formObject";
 
 //will be passed to the object that contains all the values of this form.
