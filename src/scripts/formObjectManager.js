@@ -1,12 +1,36 @@
 import formBuilder from "./formBuilder";
 import htmlBuilder from "./htmlBuilder";
 
+// To call a specific input element, use this template(where "key" is the key of the input originally defined in the keysArray):
+
+// referenceVariableContainingObject.key
+
+// To get the label of that input:
+
+// referenceVariableContainingObject.keyLabel
+
+// To get the container around the label and input:
+
+// referenceVariableContainingObject.keyContainer.
+
+//To get a specific option from a select element:
+
+//referenceVariableContainingObject.keyid (where id is the numbered position of the option in the list of options, starting with 0).
+
+// Each form object has methods for adding new elements to the form. Each has specific data that needs to be passed, so examine the structure of the object constructor defined in formObject.js. Of note, however, is the "target" attribute which defines which element the new element will be appended to.
+
 const formObject = function (wholeForm, elementArray, submitButton) {
     //dynamically builds a key for the input element, its container, and its label to store a reference to those elements for easy retrieval.
-    this.createKeys = function(element, key, container) {
-        const containerKey = `${key}Container`;
-        const labelKey = `${key}Label`;
-        this[key] = element;
+    this.createKeys = function(element, key, container, id) {
+        let elementKey
+        if (id) {
+            elementKey = `${key}${id}`
+        } else {
+            elementKey = key
+        }
+        this[elementKey] = element;
+        const containerKey = `${elementKey}Container`;
+        const labelKey = `${elementKey}Label`;
         this[containerKey] = container
         this[labelKey] = this[containerKey].firstChild
     };
@@ -22,9 +46,15 @@ const formObject = function (wholeForm, elementArray, submitButton) {
             const idArray = id.split("--");
             const key = idArray[3];
             const container = element.parentNode;
-            this.createKeys(element, key, container);
+            let optionId;
+            if (element.tagName = "option") {
+                optionId = idArray[4];
+            } else {
+                optionId = undefined;
+            }
+            this.createKeys(element, key, container, optionId);
             if (element.tagName.match(/^(INPUT|SELECT|TEXTAREA)$/)) {
-                console.log("element", element.tagName);
+                console.log("input element", element.tagName);
                 inputsArray.push(element);
             }
         })
@@ -34,12 +64,12 @@ const formObject = function (wholeForm, elementArray, submitButton) {
     this. newHeader = function (tag, id, key, target) {
         const header = formBuilder.buildHeader(tag, id, key);
         target.appendChild(header);
-        this.createKeys(newHeader, key, target);
+        this.createKeys(header, key, target);
 
     }
     this.newTextArea = function (key, id, target) {
-        const textArea = formBuilder.buildTextArea(type, key, id);
-        target.appendChild(textArea);
+        const textarea = formBuilder.buildTextArea(key, id);
+        target.appendChild(textarea);
         this.createKeys(textarea, key, target);
     };
     this.newdropDown = function (key, id, value, optionsArray, target) {
@@ -48,18 +78,10 @@ const formObject = function (wholeForm, elementArray, submitButton) {
         this.createKeys(dropDown, key, target);
 
     };
-    this.newSelectOption = function (key, id, value, target) {
-        if (target.tagName && target.tagName === "select"){
-        const optionIndex = target.children.length + 1
-        const select = htmlBuilder.elementBuilder("option", `field--${id}--select--${key}--${optionIndex}`, value, optionIndex)
-        } else {
-            throw new Error(`Target ${target} is not a "select" element. Select options can only be appended to select elements.`)
-        }
-    }
     this.newRadio = function (option, optionIndex, id, key, target) {
         const radio = formBuilder.buildOption(option, optionIndex, "radio", id, key)
         target.appendChild(radio);
-        this.createKeys(newRadio, key, target);
+        this.createKeys(radio, key, target);
 
     };
     this.newCheckbox = function (option, optionIndex, id, key, target) {
@@ -71,13 +93,13 @@ const formObject = function (wholeForm, elementArray, submitButton) {
     this.newInput = function (type, key, id, value, target) {
         const input = formBuilder.buildInput(type, key, id, value)
         target.appendChild(input);
-        this.createKeys(newInput, key, target);
+        this.createKeys(input, key, target);
 
     };
     this.newButton = function (id, name, targetElement) {
         const button = formBuilder.buildButton(id, name)
         targetElement.appendChild(button);
-        this.createKeys(button, key, target);
+        this.createKeys(button, name, targetElement);
     };
     //remove element and everything inside it.
     this.clearElement = function (element) {
