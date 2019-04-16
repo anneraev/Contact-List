@@ -1,0 +1,29 @@
+contacts API
+load existing contacts, save new ones:
+name,
+phone,
+address;
+Display all contacts
+Event listiner component,
+post to API then trigger
+dom refresh.
+
+single responsibility principle.
+
+Components:
+-contactsManager JS for controlling contacts feature. Calls the other          functions, passing them the neceessary data.
+- Contact Collection
+    //Manages API collection.
+- Contact
+    //Header for entire list.
+    //Name
+    //Key (label) and value for each item (except Name)
+- ContactList
+    //Assembles all contacts for display.
+    //Header for entire list.
+    //All contacts from "Contact.js"
+-event manager.
+    //controls what happens when buttons are pressed and passes that info to appropriate manager functions.
+-API manager
+-element manager.
+-form builder.
