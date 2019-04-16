@@ -4,6 +4,31 @@ import formObjectManager from "./formObject";
 //will be passed to the object that contains all the values of this form.
 let elementsArray = [];
 
+//This creates an array of the created elements, iterate through them, dynamically build key/value pairs that refer to the element, store the object. That way, any of the form's elements can be easily referred to. See the comments in formObjectManager.js for more information on how to call specific elements.
+
+//call function:
+// formBuilder.buildForm: function (wrapperType, title, keysArray, valuesArray, typesArray, id, arrayOptionsArray)
+
+// The following must be passed to the form builder call function:
+
+// wrappperType = type of wrapper that the form will be displayed in (div, fieldset, ect.)
+
+// let title = "Form Builder Function Test"
+
+// let id = id for form
+
+// let wrapperType = type of wrapper for form
+
+// let keysArray = array of keys associated with each input in the form.
+
+// let valuesArray = array of values associated with each input in the form.
+
+// let typesArray = array of types of inputs to create.
+
+// let arrayOptionsArray = array of arrays containing options. Ideally, these should come from an API database containing those options, and should arrive as an array in the order they appear in the databese. That array should be pushed to this array to create an array of arrays.
+
+// One of each much be defined for EVERY input. If one of the above are not valid, enter "undefined" for that entry.
+
 //ID style guide:
 //Whole Form ("form"--id)
 //wrapper for each item ("wrapper"--id--type)
@@ -15,17 +40,7 @@ let elementsArray = [];
 // type - type of input
 // key - name of item in data.
 
-//create an array of the created elements, iterate through them, dynamically build key/value pairs that refer to the element, store the object. That way, any of the form's elements can be easily referred to.
-
-//Things you'll want a reference to:
-//Inputs themselves (for getting values, adding options)
-//The form itself.
-//The wrapper for each input/label pair (for adding options, removing labels, fields, ect).
-//a reference to its submit button.
-
 //A reference to the object needs to be made inside the button's event listener. Makes it easy to access.
-
-//Object constructor needs to have in it functions to call the field creation functions, so that adding a new field to an existing form is as easy as calling that form and the field building function that is an attribute of it.
 
 export default {
     //Title of form, Array of original keys, array of original values, array of types of fields, id from dataset.
