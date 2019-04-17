@@ -1,16 +1,22 @@
 import HTML from "../../global modules/htmlBuilder"
 import contact from "./contact";
+import domManager from "../../global modules/domManager";
+
+let contactSection
 
 export default {
     assemble: function (contacts) {
-        const contactFrag = document.createDocumentFragment()
         //create header
+        contactSection = HTML.elementBuilder("section", "display--contacts");
         const header = HTML.elementBuilder("H1", "contacts--header", "Contacts")
-        contactFrag.appendChild(header);
+        contactSection.appendChild(header);
         contacts.forEach(item => {
             const contactItem = contact.build(item);
-            contactFrag.appendChild(contactItem);
+            contactSection.appendChild(contactItem);
         })
-        return contactFrag;
+        return contactSection;
+    },
+    remove: function (){
+        domManager.removeElement(contactSection);
     }
 }

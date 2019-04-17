@@ -1,5 +1,5 @@
 import formBuilder from "./formBuilder";
-import htmlBuilder from "../global modules/htmlBuilder";
+import domManager from "../domManager";
 
 // To call a specific input element, use this template(where "key" is the key of the input originally defined in the keysArray):
 
@@ -36,7 +36,7 @@ const formObject = function (wholeForm, elementArray, submitButton) {
     };
     this.form = wholeForm;
     this.elements = elementArray;
-    this.button = submitButton;
+    this.submitButton = submitButton;
     this.referenceFormElements = function () {
         //array of just the inputs for easy access by the script.
         const inputsArray = [];
@@ -47,7 +47,7 @@ const formObject = function (wholeForm, elementArray, submitButton) {
             const key = idArray[3];
             const container = element.parentNode;
             let optionId;
-            if (element.tagName = "option") {
+            if (element.tagName === "option") {
                 optionId = idArray[4];
             } else {
                 optionId = undefined;
@@ -61,7 +61,7 @@ const formObject = function (wholeForm, elementArray, submitButton) {
         this.inputs = inputsArray
     };
     //these methods allow the user to easily add new elements to the form object, as well as the DOM.
-    this. newHeader = function (tag, id, key, target) {
+    this.newHeader = function (tag, id, key, target) {
         const header = formBuilder.buildHeader(tag, id, key);
         target.appendChild(header);
         this.createKeys(header, key, target);
@@ -102,8 +102,8 @@ const formObject = function (wholeForm, elementArray, submitButton) {
         this.createKeys(button, name, targetElement);
     };
     //remove element and everything inside it.
-    this.clearElement = function (element) {
-        htmlBuilder.removeElement(element);
+    this.removeElement = function (element) {
+        domManager.removeElement(element);
     }
 }
 

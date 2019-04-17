@@ -11,15 +11,5 @@ export default {
         }
         htmlElement.textContent = elementTextContent;
         return htmlElement;
-    },
-    // Function to enable us to clear DOM.
-    clearElement: domElement => {
-        while (domElement.firstChild) {
-            domElement.removeChild(domElement.firstChild);
-        }
-    },
-    //removes specific element.
-    removeElement: domElement => {
-        domElement.parentNode.removeChild(domElement);
     }
 }

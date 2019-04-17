@@ -1,6 +1,5 @@
-import htmlBuilder from "../global modules/htmlBuilder";
-import formObjectManager from "./formObject";
-
+import htmlBuilder from "../htmlBuilder"
+import formObjectManager from "./formObjectManager"
 //will be passed to the object that contains all the values of this form.
 let elementsArray = [];
 
@@ -41,6 +40,16 @@ let elementsArray = [];
 // key - name of item in data.
 
 //A reference to the object needs to be made inside the button's event listener. Makes it easy to access.
+
+//One can easily set up a form to be created by using formBuilder.(setWrapper(element type), set title(title string), addKey(key string), addValue(value string), addType(input type string), setId(id integer), addOptions(array of options)). Then, one call the form with formBuilder.createForm (no arguments needed). Store the returned form in a variable and access the form with nameOfFormVariable[0] and the object with nameOfFormVariable[1].
+
+let wrapperType
+let title
+let keysArray = []
+let valuesArray = []
+let typesArray = []
+let id
+let arrayOptionsArray = []
 
 export default {
     //Title of form, Array of original keys, array of original values, array of types of fields, id from dataset.
@@ -171,7 +180,10 @@ export default {
         const input = htmlBuilder.elementBuilder("input", `field--${id}--${type}--${key}`);
         input.setAttribute("type", `${type}`);
         if (type === "text") {
-            input.setAttribute("placeholder", `${value}`);
+            input.setAttribute("placeholder", `add ${key}`);
+            if (value){
+                input.value = value;
+            }
         }
         div.appendChild(label);
         div.appendChild(input);
@@ -182,5 +194,39 @@ export default {
         const button = htmlBuilder.elementBuilder("button", `button--${id}--${name}`, name);
         elementsArray.push(button);
         return button;
+    },
+    clearVariables: function () {
+        wrapperType = ""
+        title = ""
+        keysArray = []
+        valuesArray = []
+        typesArray = []
+        id = ""
+        arrayOptionsArray = []
+    },
+    setWrapper: function (string) {
+        wrapperType = string;
+    },
+    setTitle: function (string) {
+        title = string;
+    },
+    addKey: function (string) {
+        keysArray.push(string);
+    },
+    addValue: function (string) {
+        valuesArray.push(string)
+    },
+    addType: function (string) {
+        typesArray.push(string);
+    },
+    setId: function (num) {
+        id = num;
+    },
+    addOptions: function (array) {
+        arrayOptionsArray.push(array);
+    },
+    createForm: function() {
+        const formArray = this.buildForm(wrapperType, title, keysArray, valuesArray, typesArray, id, arrayOptionsArray);
+        return formArray;
     }
 }
