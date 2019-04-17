@@ -36,7 +36,7 @@ const formObject = function (wholeForm, elementArray, submitButton) {
     };
     this.form = wholeForm;
     this.elements = elementArray;
-    this.button = submitButton;
+    this.submitButton = submitButton;
     this.referenceFormElements = function () {
         //array of just the inputs for easy access by the script.
         const inputsArray = [];
@@ -102,7 +102,7 @@ const formObject = function (wholeForm, elementArray, submitButton) {
         this.createKeys(button, name, targetElement);
     };
     //remove element and everything inside it.
-    this.clearElement = function (element) {
+    this.removeElement = function (element) {
         htmlBuilder.removeElement(element);
     }
 }
