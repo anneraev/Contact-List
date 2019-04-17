@@ -1,5 +1,5 @@
 import formBuilder from "./formBuilder";
-import htmlBuilder from "../htmlBuilder";
+import domManager from "../domManager";
 
 // To call a specific input element, use this template(where "key" is the key of the input originally defined in the keysArray):
 
@@ -103,7 +103,7 @@ const formObject = function (wholeForm, elementArray, submitButton) {
     };
     //remove element and everything inside it.
     this.removeElement = function (element) {
-        htmlBuilder.removeElement(element);
+        domManager.removeElement(element);
     }
 }
 

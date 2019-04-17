@@ -1,15 +1,15 @@
-//Control module for the Contacts feature.
+//Control module for interracting between API Manager and DOM.
 
 let assembledContacts
 
-import API from "../../global modules/apiManager"
+import apiManager from "../../global modules/apiManager"
 import domManager from "../../global modules/domManager";
 import contactList from "../contacts/contactList";
 
 export default {
     //get contacts from API.
     getContacts: function () {
-        return API.getAll("contacts")
+        return apiManager.getAll("contacts")
     },
     assembleContacts: function () {
         this.getContacts().then(contacts => {
@@ -19,7 +19,7 @@ export default {
             domManager.postToDom(assembledContacts);
         })
     },
-    //sends contact to API, then reloads DOM element.
+    //sends contact to API.
     sendContactToApi: function (contactObject){
         return apiManager.post("contacts", contactObject);
     }
