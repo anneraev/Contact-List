@@ -8,13 +8,15 @@ import contactForm from "../components/contacts/contactForm";
 export default {
     //called on page load.
     initialize: function () {
+        const formArray = contactForm.buildForm();
+        const form = formArray[0];
+        const formObject = formArray[1];
+        domManager.postToDom(form);
         let assembledContacts
         contactCollection.getContacts().then(contacts => {
             assembledContacts = contactList.assemble(contacts)
         }).then(() => {
             domManager.postToDom(assembledContacts);
         })
-        const formArray = contactForm.buildForm();
-        console.log(formArray);
     }
 }
