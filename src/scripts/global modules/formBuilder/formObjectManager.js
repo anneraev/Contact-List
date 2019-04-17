@@ -1,5 +1,5 @@
 import formBuilder from "./formBuilder";
-import htmlBuilder from "../global modules/htmlBuilder";
+import htmlBuilder from "../htmlBuilder";
 
 // To call a specific input element, use this template(where "key" is the key of the input originally defined in the keysArray):
 
@@ -47,7 +47,7 @@ const formObject = function (wholeForm, elementArray, submitButton) {
             const key = idArray[3];
             const container = element.parentNode;
             let optionId;
-            if (element.tagName = "option") {
+            if (element.tagName === "option") {
                 optionId = idArray[4];
             } else {
                 optionId = undefined;
@@ -61,7 +61,7 @@ const formObject = function (wholeForm, elementArray, submitButton) {
         this.inputs = inputsArray
     };
     //these methods allow the user to easily add new elements to the form object, as well as the DOM.
-    this. newHeader = function (tag, id, key, target) {
+    this.newHeader = function (tag, id, key, target) {
         const header = formBuilder.buildHeader(tag, id, key);
         target.appendChild(header);
         this.createKeys(header, key, target);

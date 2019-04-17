@@ -1,3 +1,3 @@
-import contactManager from "./components/contacts/contactManager";
+import contactManager from "./modules/contactManager";
 
 contactManager.initialize();

@@ -1,6 +1,5 @@
-import htmlBuilder from "../global modules/htmlBuilder";
-import formObjectManager from "./formObject";
-
+import htmlBuilder from "../htmlBuilder"
+import formObjectManager from "./formObjectManager"
 //will be passed to the object that contains all the values of this form.
 let elementsArray = [];
 
@@ -42,7 +41,7 @@ let elementsArray = [];
 
 //A reference to the object needs to be made inside the button's event listener. Makes it easy to access.
 
-//One can easily set up a form to be created by using formBuilder.(setWrapper(element type), set title(title string), addKey(key string), addValue(value string), addType(input type string), setId(id integer), addOptions(array of options)). Then, one call the form with formBuilder.createForm (no arguments needed). Store the returned form in a variable and access the form with nameOfFormVariable[0] and the object with nameOfFormariable[1].
+//One can easily set up a form to be created by using formBuilder.(setWrapper(element type), set title(title string), addKey(key string), addValue(value string), addType(input type string), setId(id integer), addOptions(array of options)). Then, one call the form with formBuilder.createForm (no arguments needed). Store the returned form in a variable and access the form with nameOfFormVariable[0] and the object with nameOfFormVariable[1].
 
 let wrapperType
 let title
@@ -181,7 +180,10 @@ export default {
         const input = htmlBuilder.elementBuilder("input", `field--${id}--${type}--${key}`);
         input.setAttribute("type", `${type}`);
         if (type === "text") {
-            input.setAttribute("placeholder", `${value}`);
+            input.setAttribute("placeholder", `add ${key}`);
+            if (value){
+                input.value = value;
+            }
         }
         div.appendChild(label);
         div.appendChild(input);
@@ -208,7 +210,7 @@ export default {
     setTitle: function (string) {
         title = string;
     },
-    addWrapper: function (string) {
+    addKey: function (string) {
         keysArray.push(string);
     },
     addValue: function (string) {
@@ -224,6 +226,7 @@ export default {
         arrayOptionsArray.push(array);
     },
     createForm: function() {
-        this.buildForm(wrapperType, title, keysArray, valuesArray, typesArray, id, arrayOptionsArray);
+        const formArray = this.buildForm(wrapperType, title, keysArray, valuesArray, typesArray, id, arrayOptionsArray);
+        return formArray;
     }
 }

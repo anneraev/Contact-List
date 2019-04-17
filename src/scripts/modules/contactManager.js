@@ -1,8 +1,9 @@
 //controlls contacts feature. Responsible for calling other functions and passing the necessary data to them.
 
-import contactCollection from "./contactCollection";
-import contactList from "./contactList";
-import domManager from "../../global modules/domManager";
+import contactCollection from "../components/contacts/contactCollection";
+import contactList from "../components/contacts/contactList";
+import domManager from "../global modules/domManager";
+import contactForm from "../components/contacts/contactForm";
 
 export default {
     //called on page load.
@@ -13,5 +14,7 @@ export default {
         }).then(() => {
             domManager.postToDom(assembledContacts);
         })
+        const formArray = contactForm.buildForm();
+        console.log(formArray);
     }
 }
