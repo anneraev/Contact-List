@@ -6,6 +6,9 @@ export default {
     build: function (contact) {
         //container for this contact.
         const contactContainer = htmlBuilder.elementBuilder("section", `contact--section--${contact.id}`)
+        //contactContainer.classList.add("container");
+        const classesToAdd = [ "py-3", "px-lg-5", "rounded", "contact__card"]
+        contactContainer.classList.add(...classesToAdd);
         //contact's name as a header.
         const nameHeader = htmlBuilder.elementBuilder("h2", `contact--name--${contact.id}`, `${contact.name}`)
         contactContainer.appendChild(nameHeader);
